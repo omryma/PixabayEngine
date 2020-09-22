@@ -21,7 +21,7 @@ const engineSlice = createSlice({
                 state.images = pageNum === 1 ? imagesHits : state.images.concat(imagesHits) //Determine if it's a new query or not
                 state.resultsPage = pageNum + 1
             }
-            if (imagesHits.length < 40) {
+            if (imagesHits.length < 50) {
                 state.keepFetch = false
             }
             state.isLoading = false
@@ -53,7 +53,7 @@ export default engineSlice.reducer
 export const fetchImages = (tags, pageNum = 1) => async dispatch => {
     dispatch(fetchImagesPending({ tags, pageNum }))
     try {
-        const imagesDataResponse = await fetch(`${API_URL}/?key=${KEY}&per_page=40&page=${pageNum}&q=${tags.join('+')}&pretty=true/`)
+        const imagesDataResponse = await fetch(`${API_URL}/?key=${KEY}&per_page=50&page=${pageNum}&q=${tags.join('+')}&pretty=true/`)
         const imagesData = await imagesDataResponse.json()
         const { hits: imagesHits } = imagesData
         dispatch(fetchImagesFulfilled({ imagesHits, pageNum }))

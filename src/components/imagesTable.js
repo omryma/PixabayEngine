@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, {useState, useEffect, Fragment} from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { engineSelector, fetchImages } from "../slices/engine";
 import { ImageItem, ImagesContainer } from "./styled/imagesStyles";
@@ -23,15 +23,23 @@ const ImagesTable = () => {
         isBottom && !isLoading && keepFetch && dispatch(fetchImages(currentTags, resultsPage))
     }, [isBottom])
 
+    const handleImageClick = (e, imageURL) => {
+        e.preventDefault()
+        if (!e.charCode || e.charCode === 32 || e.charCode === 13) window.open(imageURL) //only by the click of Mouse, Enter and Space
+    }
+
     return (
         !isError ?
             <>
                 <ImagesContainer>
-                    {images.map((image) => (
+                    {images.map((image, idx) => (
                         <ImageItem
                             key={image.id}
                             src={image.webformatURL.replace('_640', '_180')}
-                            onClick={() => window.open(image.largeImageURL)}
+                            onClick={(e) => handleImageClick(e, image.largeImageURL)}
+                            onKeyPress={(e) => handleImageClick(e, image.largeImageURL)}
+                            alt={image.tags}
+                            tabIndex={idx + 3}
                         />
                     ))}
                 </ImagesContainer>

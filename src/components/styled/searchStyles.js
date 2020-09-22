@@ -13,7 +13,8 @@ export const SearchButton = styled.button`
         background: ${props => props.disabled ? '#c2b9b9' : '#00ace6'};
     }
     &:focus{
-        outline: none;
+          box-shadow: 0px 0px 6px 2px black;
+          outline: none;
     }
 `;
 

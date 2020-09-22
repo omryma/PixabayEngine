@@ -46,10 +46,12 @@ const SearchBar = () => {
                 isValidNewOption={(input, selected) => selected.length < 4 && input.trim().length > 0}
                 value={currentTags}
                 noOptionsMessage={({ inputValue }) => generateWarningMessage(inputValue)}
+                tabIndex="1"
             />
             <SearchButton
                 onClick={onSearchFire}
                 disabled={!currentTags.length}
+                tabIndex="2"
             >
                 Search
             </SearchButton>
